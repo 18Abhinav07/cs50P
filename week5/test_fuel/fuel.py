@@ -1,18 +1,31 @@
 def main():
-    frac = input("Fraction: ")
-    pct = convert(frac)
-    print(gauge(pct))
+    fraction: str = input("Fraction: ")
+    percentage: int = convert(fraction)
 
+    # // Print the gauge percentage
+    print(gauge(percentage))
 
-def convert(fraction):
-    x, y = fraction.split("/")
-    if int(x)/int(y) > 1:
-        raise ValueError
-    elif int(y) == 0:
-        raise ZeroDivisionError
-    return int(int(x)/int(y) * 100)
+# // Convert the fraction to an integer
+def convert(fraction: str):
+    try:
+        # // Split the inputted fraction by "/"
+        _split = fraction.split("/")
 
+        # // Get the x and y values
+        x: int = int(_split[0])
+        y: int = int(_split[1])
 
+        # // Return the percentage integer
+        return int(round((x/y)*100))
+
+    # // Except Exceptions, ValueError and ZeroDivisionError
+    except ValueError:
+        main()
+    except ZeroDivisionError:
+        main()
+
+# // Convert the percentage integer to a
+# // percentage string, E or F
 def gauge(percentage):
     try:
         if 0 <= percentage <= 1:
@@ -24,8 +37,10 @@ def gauge(percentage):
         else:
             raise TypeError
     except TypeError:
-        pass
+        main()
 
 
+
+# // Run the main function
 if __name__ == "__main__":
     main()
